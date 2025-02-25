@@ -1,0 +1,101 @@
+-- WE WANT TO BEGIN BY STANDARDIZING OUR MISSING VALUE LABELS TO SIMPLY NULL VALUES
+
+UPDATE dirty_cafe_sales
+SET 
+	Item = NULL
+WHERE Item IN ('UNKNOWN', 'ERROR', '');
+
+UPDATE dirty_cafe_sales
+SET 
+	Quantity = NULL
+WHERE Quantity IN ('UNKNOWN', 'ERROR', '');
+
+UPDATE dirty_cafe_sales
+SET 
+	`Price Per Unit` = NULL
+WHERE `Price Per Unit` IN ('UNKNOWN', 'ERROR', '');
+
+UPDATE dirty_cafe_sales
+SET 
+	`Total Spent` = NULL
+WHERE `Total Spent` IN ('UNKNOWN', 'ERROR', '');
+
+UPDATE dirty_cafe_sales
+SET 
+	`Payment Method` = NULL
+WHERE `Payment Method` IN ('UNKNOWN', 'ERROR', '');
+
+UPDATE dirty_cafe_sales
+SET 
+	Location = NULL
+WHERE Location IN ('UNKNOWN', 'ERROR', '');
+
+UPDATE dirty_cafe_sales
+SET 
+	`Transaction Date` = NULL
+WHERE `Transaction Date` IN ('UNKNOWN', 'ERROR', '');
+
+-- UPDATE MISSING OR INCORRECT PRICES FOR EACH ITEM
+
+UPDATE dirty_cafe_sales
+SET `Price Per Unit` = 5
+WHERE Item = 'Salad';
+
+UPDATE dirty_cafe_sales
+SET `Price Per Unit` = 4
+WHERE Item IN ('Smoothie', 'Sandwich');
+
+UPDATE dirty_cafe_sales
+SET `Price Per Unit` = 3
+WHERE Item IN ('Cake', 'Juice');
+
+UPDATE dirty_cafe_sales
+SET `Price Per Unit` = 2
+WHERE Item = 'Coffee';
+
+UPDATE dirty_cafe_sales
+SET `Price Per Unit` = 1.5
+WHERE Item = 'Tea';
+
+UPDATE dirty_cafe_sales
+SET `Price Per Unit` = 1
+WHERE Item = 'Cookie';
+
+-- UPDATE MISSING OR INCORRET ITEMS FOR PRICES WITH ONLY ONE ITEM
+
+UPDATE dirty_cafe_sales
+SET Item = 'Salad'
+WHERE `Price Per Unit` = 5;
+
+UPDATE dirty_cafe_sales
+SET Item = 'Coffee'
+WHERE `Price Per Unit` = 2;
+
+UPDATE dirty_cafe_sales
+SET Item = 'Tea'
+WHERE `Price Per Unit` = 1.5;
+
+UPDATE dirty_cafe_sales
+SET Item = 'Cookie'
+WHERE `Price Per Unit` = 1;
+
+-- WITH A MAJORITY OF PRICE PER UNITS NOW NOT NULL, WE CAN CALCULATE QUANTITY AND TOTAL SPENT FOR ROWS WITH ONE NULL VALUE
+-- ONCE WE HAVE CALCULATED TOTAL SPENT AND QUANTITY, WE CAN GO BACK AND TRY TO ROUND OUT ANY REMAINING NULL VALUES IN PRICE PER UNIT
+
+UPDATE dirty_cafe_sales
+SET Quantity = `Total Spent` / `Price Per Unit`
+WHERE `Price Per Unit` IS NOT NULL AND `Total Spent` IS NOT NULL;
+
+UPDATE dirty_cafe_sales
+SET `Total Spent` = Quantity * `Price Per Unit`
+WHERE `Price Per Unit` IS NOT NULL AND Quantity IS NOT NULL;
+
+UPDATE dirty_cafe_sales
+SET `Price Per Unit`  = `Total Spent` / Quantity
+WHERE `Price Per Unit` IS NULL AND Quantity IS NOT NULL AND `Total Spent` IS NOT NULL ;
+
+-- I WOULD ASK STAKEHOLDERS BEFORE RUNNING THIS QUERY, BUT ANY REMAINING ROWS WITH A NULL IN TOTAL SPENT, QUANITY, OR PRICE PER UNIT
+-- WOULD HAVE MORE THAN ONE NULL VALUE AND WOULD NOT BE MUCH USE
+
+DELETE FROM dirty_cafe_sales
+WHERE `Total Spent` IS NULL OR Quantity IS NULL OR `PRICE PER UNIT` IS NULL;
