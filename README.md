@@ -10,5 +10,7 @@ The Cafe's sales database structure as seen below consists of one table: dirty_c
 
 ## Data Cleaning
 • The original CSV file for the database can be found [here](https://github.com/nbellinder/Cafe_Sales_Data_Cleaning/blob/main/dirty_cafe_sales.csv).
+
 • Targeted SQL queries used to inspect and clean the data can be found [here](https://github.com/nbellinder/Cafe_Sales_Data_Cleaning/blob/main/SQL%20Dataset%20Cleaning%20Queries).
+
 • An Excel Workbook with the dirty data, cleaned data, and an update log can be found [here](https://github.com/nbellinder/Cafe_Sales_Data_Cleaning/blob/main/dirty_cafe_sales_clean.xlsx).
