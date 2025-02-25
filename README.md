@@ -14,3 +14,7 @@ The Cafe's sales database structure as seen below consists of one table: dirty_c
 • Targeted SQL queries with explanations used to inspect and clean the data can be found [here](https://github.com/nbellinder/Cafe_Sales_Data_Cleaning/blob/main/SQL%20Dataset%20Cleaning%20Queries).
 
 • An Excel Workbook with the dirty data, cleaned data, and an update log can be found [here](https://github.com/nbellinder/Cafe_Sales_Data_Cleaning/blob/main/dirty_cafe_sales_clean.xlsx).
+
+## Missing Data Handling
+
+There was no reliable way to estimate **Transaction Date** and a lack of supplementry information to find missing **Payment Methods** or **Location**. Because of this, missing values in these fields were made NULL.
