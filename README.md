@@ -17,4 +17,8 @@ The Cafe's sales database structure as seen below consists of one table: dirty_c
 
 ## Missing Data Handling
 
-There was no reliable way to estimate **Transaction Date** and a lack of supplementry information to find missing **Payment Methods** or **Location**. Because of this, missing values in these fields were made NULL.
+• Contextually, many NULL values in **Item**, **Quantity**, **Price Perr Unit**, and **Total Spent** were able to be recovered.
+
+• There needs to be a deeper discussion with Stakeholders about the viability of records that lack 2 or more of: **Quantity**, **Price Per Unit**, and **Total Spent** and if they should be removed from the dataset because of their lack of value.
+
+• There was no reliable way to estimate **Transaction Date** and a lack of supplementry information to find missing **Payment Methods** or **Location**. Because of this, missing values in these fields were made NULL.
